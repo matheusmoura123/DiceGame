@@ -33,9 +33,10 @@ void Game::StartGame()
 {   
     while (!GameOver())
     {
-        Turn turn(turnNumber, players, dices.RollAllDice());
+        Turn turn(turnNumber, players, dices.PossibleNumbers(dices.RollAllDice()));
         ShowCards();
-        std::cin.get();
+        turn.PlayWhiteDice(players[0]);
+        // std::cin.get();
         turnNumber++;
     } 
     

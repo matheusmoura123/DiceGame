@@ -25,13 +25,19 @@ void Turn::PlayWhiteDice(Player& player)
     bool correct{false};
     while (!correct)
     {
-        auto [color, number] = GetInput("Use white dices (row_color [SPACE] number): ");
+        auto [color, number] = GetInput("Use white dices (row_color [SPACE] number) or (no 0): ");
+        if (number == 0)
+        {
+            // Don't cross function
+            correct =true;
+        }
         if(!player.MakeCross(color, number))
         {
             std::cout << "Can't Cross that\n";
             continue;
         }
         std::cout << '\n';
+        correct = true;
     }
 }
 
@@ -46,6 +52,10 @@ std::pair<Row::Color, int> Turn::GetInput(std::string msg)
         std::string color_str;
         std::string number_str;
         std::cin >> color_str >> number_str;
+        if (color_str == "no")
+        {
+            return {*color, number};
+        }
         color = getColorFromString(color_str);
         if (!color)
         {
@@ -86,5 +96,5 @@ bool Turn::isPossibleNumber(Row::Color color, const std::string& num_str)
     } catch (...) {
         return false;
     }
-    
+    return false;
 }
