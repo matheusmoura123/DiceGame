@@ -32,11 +32,9 @@ public:
   
 private:
     void InitTurn();
-    void AskPlayers();
-    void AskPlayer(int idx);
     bool EndTurn();
     void ShowCards();
-    void SetPlayersTurn();
+    void SetPlayersTurn(int activeNumber);
     void PrintPoints();
     bool GameOver();
     void ClearConsole();

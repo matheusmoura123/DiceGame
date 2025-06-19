@@ -32,45 +32,21 @@ bool Game::SetPlayers(int num)
 void Game::StartGame()
 {   
     while (!GameOver())
-    {
-        Turn turn(turnNumber, players, dices.PossibleNumbers(dices.RollAllDice()));
-        ShowCards();
-        turn.PlayWhiteDice(players[0]);
-        // std::cin.get();
-        turnNumber++;
+    {   
+        InitTurn();
+        EndTurn();
     } 
     
 }
 
 void Game::InitTurn()
 {   
-    std::cout << "TURN " << turnNumber << '\n';
-    SetPlayersTurn();
-
-    possibilities = dices.PossibleNumbers(dices.RollAllDice());
+    std::cout << "\nTURN " << turnNumber << '\n';
+    Turn turn(turnNumber, numPlayers, dices.PossibleNumbers(dices.RollAllDice()));
+    SetPlayersTurn(turn.GetActiveNumber());
     ShowCards();
-}
 
-void Game::AskPlayers()
-{
-    for (int i{0}; i < numPlayers; ++i)
-    {
-        AskPlayer((i+playerTurn)%numPlayers);
-    }
-}
-
-void Game::AskPlayer(int idx)
-{   
-    Player* player = &players[static_cast<std::size_t>(idx)];
-    int color;
-    int number;
-    if (player->IsTurn())
-    {
-        std::cout << "Use white dices (row_number[SPACE]number): ";
-        std::cin >> color >> number;
-        player->MakeCross(static_cast<Row::Color>(color), number);
-        std::cout << '\n';
-    }
+    turn.PlayWhiteDice(players[0]);
 }
 
 bool Game::EndTurn()
@@ -93,13 +69,11 @@ void Game::ShowCards()
     }
 }
 
-void Game::SetPlayersTurn()
+void Game::SetPlayersTurn(int activeNumber)
 {
     for (auto& player : players)
         player.SetTurn(Player::NOT_TURN);
-
-    playerTurn = (turnNumber%numPlayers) ? turnNumber%numPlayers-1 : numPlayers-1;
-    players[static_cast<std::size_t>(playerTurn)].SetTurn(Player::IN_TURN);
+    players[static_cast<std::size_t>(activeNumber)].SetTurn(Player::IN_TURN);
 }
 
 void Game::PrintPoints()
@@ -109,6 +83,7 @@ void Game::PrintPoints()
     {
         std::cout << "Player "<< player.GetPlayerNumber() + 1 << ": \t" << player.GetPoints() << " points\n";
     }
+    std::cout << std::endl;
 }
 
 bool Game::GameOver()

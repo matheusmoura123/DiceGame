@@ -8,7 +8,7 @@ Row::Row(Color color)
     , crosses(1)
 {
     direction = (color == RED || color == YELLOW) ? UP : DOWN;
-    crosses[0] = (UP) ? 1 : 13;
+    crosses[0] = (direction) ? 1 : 13;
 }
 
 Row::~Row()
@@ -43,7 +43,7 @@ bool Row::CanCross(int num)
 {   
     if(status == LOCKED)
         return false;
-    if(num < 1 && num > 13)
+    if(num < 1 || num > 13)
         return false;
     if (direction == UP)
     {

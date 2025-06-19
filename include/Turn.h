@@ -12,7 +12,7 @@
 class Turn
 {
 public:
-    Turn(int turnNumber, std::vector<Player>& players, std::vector<std::vector<int>> possibleNumbers);
+    Turn(int turnNumber, int numPlayers, std::vector<std::vector<int>> possibleNumbers);
 
 public:
     ~Turn();
@@ -24,12 +24,14 @@ private:
     std::vector<std::vector<int>> possibleNumbers;
 
 public:
-    void PlayWhiteDice(Player& player);
-    void PlayColoredDice(Player& player);
+    int GetActiveNumber();
+    std::vector<int> GetPassiveOrder();
+    bool PlayWhiteDice(Player& player);
+    bool PlayColoredDice(Player& player);
 
 private:
     std::vector<int> SortRestPlayers();
     constexpr std::optional<Row::Color> getColorFromString(std::string_view sv);
-    bool isPossibleNumber(Row::Color color, const std::string& num);
+    bool isNumber(Row::Color color, const std::string& num);
     std::pair<Row::Color, int> GetInput(std::string msg);
 };

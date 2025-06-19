@@ -29,7 +29,8 @@ std::vector<int> DiceSet::RollAllDice()
 
 std::vector<std::vector<int>> DiceSet::PossibleNumbers(std::vector<int> diceThrow)
 {
-    std::vector<std::vector<int>> possibilities(4, {diceThrow[0]+diceThrow[1]});
+    std::vector<std::vector<int>> possibilities(5);
+    possibilities[4].push_back(diceThrow[0]+diceThrow[1]);
     for (uint8_t i = 2; i < 6; ++i)
     {
         if (diceThrow[i])

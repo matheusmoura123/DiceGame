@@ -1,7 +1,7 @@
 #include "Turn.h"
 
-Turn::Turn(int turnNumber, std::vector<Player>& players, std::vector<std::vector<int>> possibleNumbers)
-    : numPlayers(static_cast<int>(players.size())) 
+Turn::Turn(int turnNumber, int numPlayers, std::vector<std::vector<int>> possibleNumbers)
+    : numPlayers(numPlayers) 
     , activePlayerNumber((turnNumber%numPlayers) ? turnNumber%numPlayers-1 : numPlayers-1)
     , passivePlayersOrder(SortRestPlayers())
     , possibleNumbers(possibleNumbers)
@@ -20,25 +20,34 @@ std::vector<int> Turn::SortRestPlayers()
     return sortedRestPlayers;
 }
 
-void Turn::PlayWhiteDice(Player& player)
+int Turn::GetActiveNumber()
+{
+    return activePlayerNumber;
+}
+
+std::vector<int> Turn::GetPassiveOrder()
+{
+    return passivePlayersOrder;
+}
+
+bool Turn::PlayWhiteDice(Player& player)
 {   
-    bool correct{false};
-    while (!correct)
+    while (1)
     {
-        auto [color, number] = GetInput("Use white dices (row_color [SPACE] number) or (no 0): ");
+        auto [color, number] = GetInput("WHITE DICES (row_color number) or (no 0): ");
         if (number == 0)
         {
-            // Don't cross function
-            correct =true;
+            std::cout << '\n';
+            return false;
         }
         if(!player.MakeCross(color, number))
         {
             std::cout << "Can't Cross that\n";
             continue;
         }
-        std::cout << '\n';
-        correct = true;
+        break;
     }
+    return true;
 }
 
 std::pair<Row::Color, int> Turn::GetInput(std::string msg)
@@ -62,7 +71,7 @@ std::pair<Row::Color, int> Turn::GetInput(std::string msg)
             std::cout << "Invalid color\n";
             continue;
         }
-        if (!isPossibleNumber(*color, number_str))
+        if (!isNumber(*color, number_str))
         {
             std::cout << "Invalid number\n";
             continue;
@@ -82,7 +91,7 @@ constexpr std::optional<Row::Color> Turn::getColorFromString(std::string_view sv
     return {};
 }
 
-bool Turn::isPossibleNumber(Row::Color color, const std::string& num_str)
+bool Turn::isNumber(Row::Color color, const std::string& num_str)
 {   
     try {
         int num{};
@@ -98,3 +107,6 @@ bool Turn::isPossibleNumber(Row::Color color, const std::string& num_str)
     }
     return false;
 }
+
+// Write check for possible
+bool Turn::
