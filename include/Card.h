@@ -1,0 +1,28 @@
+#pragma once
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+#include "Row.h"
+
+class Card
+{
+public:
+    Card();
+
+public:
+    ~Card();
+
+private: 
+    std::vector<Row> rows;
+    int penalties;
+
+public:
+    void ShowCard();
+    bool CrossRow(Row::Color color, int num);
+    int GetPoints();
+    int GetPenalties();
+    void ApplyPenalty();
+
+};
