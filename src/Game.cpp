@@ -112,7 +112,7 @@ void Game::PrintPoints()
 
 bool Game::GameOver()
 {
-    if (locks > 1 || turnNumber > 5)
+    if (locks > 1 || turnNumber > 6)
     {
         std::cout << "GAME OVER" << '\n';
         PrintPoints();
