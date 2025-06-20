@@ -12,14 +12,17 @@ void Card::ShowCard()
 {
     for (Row row : rows)
         row.PrintRow();
-    std::cout << "Penalties" << '\t' << penalties << std::endl; 
+    std::cout << "Penalties" << '\t';
+    for (int i{0}; i < penalties; ++i)
+        std::cout << "X ";
+    std::cout << '\n' << std::endl; 
 }
 
 bool Card::CrossRow(Row::Color color, int num)
 {
     if(rows[color].CrossNumber(num))
     {
-        ShowCard();
+        // ShowCard();
         return true;
     }
     return false;

@@ -42,6 +42,7 @@ bool Turn::UseColorfulDice(Player& player)
 
 bool Turn::UseDice(Player& player, const std::string dice)
 {   
+    std::cout << "Player " << player.GetPlayerNumber() + 1 << '\n';
     while (1)
     {
         auto [color, number] = GetInput(dice);
@@ -66,7 +67,7 @@ std::pair<Row::Color, int> Turn::GetInput(const std::string dice)
     int number{0};
     bool correct{false};
     while (!correct)
-    {
+    {   
         std::cout << dice <<" DICES (row_color number) or (no 0): ";
         std::string color_str;
         std::string number_str;

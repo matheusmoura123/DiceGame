@@ -33,27 +33,39 @@ void Game::StartGame()
 {   
     while (!GameOver())
     {   
-        InitTurn();
+        Turn turn{InitTurn()};
+
+        MidTurn(turn);
+
         EndTurn();
     } 
     
 }
 
-void Game::InitTurn()
+Turn Game::InitTurn()
 {   
     std::cout << "\nTURN " << turnNumber << '\n';
     Turn turn(turnNumber, numPlayers, dices.PossibleNumbers(dices.RollAllDice()));
     SetPlayersTurn(turn.GetActiveNumber());
     ShowCards();
+    return turn;
+}
 
-    turn.UseWhiteDice(players[0]);
-    turn.UseColorfulDice(players[0]);
+void Game::MidTurn(Turn& turn)
+{   
+    size_t active{static_cast<size_t>(turn.GetActiveNumber())};
+    bool usedWhite{turn.UseWhiteDice(players[active])};
+    bool usedColorful{turn.UseColorfulDice(players[active])};
+    if(!usedWhite && !usedColorful)
+        players[active].ApplyPenalty();
+    for (auto idx : turn.GetPassiveOrder())
+        turn.UseWhiteDice(players[static_cast<size_t>(idx)]);
 }
 
 bool Game::EndTurn()
-{
+{   
+    
     turnNumber++;
-
     return true;
 }
 
@@ -61,12 +73,11 @@ void Game::ShowCards()
 {
     for (Player player : players)
     {   
-        std::cout << "Player " << player.GetPlayerNumber() + 1;
+        std::cout << "PLAYER " << player.GetPlayerNumber() + 1;
         if (player.IsTurn())
             std::cout << " TURN";
         std::cout << '\n';
         player.ShowCard();
-        std::cout << '\n';
     }
 }
 
@@ -88,7 +99,16 @@ void Game::PrintPoints()
 }
 
 bool Game::GameOver()
-{
+{   
+    bool over{false};
+    for (auto& player : players)
+    {
+        if (player.GetPenalties() >= 4)
+        {
+            over = true;
+            break;
+        }
+    }
     if (locks > 1 || turnNumber > 6)
     {
         std::cout << "GAME OVER" << '\n';

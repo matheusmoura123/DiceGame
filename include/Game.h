@@ -31,7 +31,8 @@ public:
     void StartGame();
   
 private:
-    void InitTurn();
+    Turn InitTurn();
+    void MidTurn(Turn& turn);
     bool EndTurn();
     void ShowCards();
     void SetPlayersTurn(int activeNumber);

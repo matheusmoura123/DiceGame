@@ -5,7 +5,10 @@
 int main()
 {   
     Game game;
-    game.SetPlayers(3);
+    // int numPlayers;
+    // std::cout << "Number of Players: ";
+    // std::cin >> numPlayers;
+    game.SetPlayers(2);
     game.StartGame();
     
     return 0;
