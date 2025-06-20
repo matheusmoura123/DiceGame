@@ -26,12 +26,12 @@ private:
 public:
     int GetActiveNumber();
     std::vector<int> GetPassiveOrder();
-    bool PlayWhiteDice(Player& player);
-    bool PlayColoredDice(Player& player);
-
+    bool UseWhiteDice(Player& player);
+    bool UseColorfulDice(Player& player);
+    
 private:
     std::vector<int> SortRestPlayers();
-    constexpr std::optional<Row::Color> getColorFromString(std::string_view sv);
-    bool isNumber(Row::Color color, const std::string& num);
-    std::pair<Row::Color, int> GetInput(std::string msg);
+    bool UseDice(Player& player, const std::string dice);
+    bool isNumberPossible(Row::Color color, const std::string& num_str, const std::string dice);
+    std::pair<Row::Color, int> GetInput(const std::string dice);
 };

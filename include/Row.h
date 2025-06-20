@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -42,7 +43,8 @@ private:
 public:
     bool CrossNumber(int num);
     void LockRowOut();
-    constexpr std::string_view GetColorName();
+    std::string_view GetColorName();
+    std::optional<Row::Color> GetColorFromString(std::string_view sv);
     void PrintRow();
     int GetCrosses();
     

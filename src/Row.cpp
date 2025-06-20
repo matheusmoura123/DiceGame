@@ -60,7 +60,7 @@ bool Row::CanCross(int num)
     return false;
 }
 
-constexpr std::string_view Row::GetColorName()
+std::string_view Row::GetColorName()
 {
     switch (color)
     {
@@ -70,6 +70,15 @@ constexpr std::string_view Row::GetColorName()
     case BLUE:      return "Blue";
     default:        return "???";
     }
+}
+
+std::optional<Row::Color> Row::GetColorFromString(std::string_view sv)
+{
+    if (sv == "red")        return RED;
+    if (sv == "yellow")     return YELLOW;
+    if (sv == "green")      return GREEN;
+    if (sv == "blue")       return BLUE;
+    return {};
 }
 
 int Row::GetCrosses()

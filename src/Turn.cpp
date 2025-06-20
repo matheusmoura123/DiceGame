@@ -30,11 +30,21 @@ std::vector<int> Turn::GetPassiveOrder()
     return passivePlayersOrder;
 }
 
-bool Turn::PlayWhiteDice(Player& player)
+bool Turn::UseWhiteDice(Player& player)
+{
+    return UseDice(player, "WHITE");
+}
+
+bool Turn::UseColorfulDice(Player& player)
+{
+    return UseDice(player, "COLORFUL");
+}
+
+bool Turn::UseDice(Player& player, const std::string dice)
 {   
     while (1)
     {
-        auto [color, number] = GetInput("WHITE DICES (row_color number) or (no 0): ");
+        auto [color, number] = GetInput(dice);
         if (number == 0)
         {
             std::cout << '\n';
@@ -50,14 +60,14 @@ bool Turn::PlayWhiteDice(Player& player)
     return true;
 }
 
-std::pair<Row::Color, int> Turn::GetInput(std::string msg)
+std::pair<Row::Color, int> Turn::GetInput(const std::string dice)
 {
     std::optional<Row::Color> color;
     int number{0};
     bool correct{false};
     while (!correct)
     {
-        std::cout << msg;
+        std::cout << dice <<" DICES (row_color number) or (no 0): ";
         std::string color_str;
         std::string number_str;
         std::cin >> color_str >> number_str;
@@ -65,13 +75,16 @@ std::pair<Row::Color, int> Turn::GetInput(std::string msg)
         {
             return {*color, number};
         }
-        color = getColorFromString(color_str);
+        {
+            Row row(Row::RED);
+            color = row.GetColorFromString(color_str);
+        }
         if (!color)
         {
             std::cout << "Invalid color\n";
             continue;
         }
-        if (!isNumber(*color, number_str))
+        if (!isNumberPossible(*color, number_str, dice))
         {
             std::cout << "Invalid number\n";
             continue;
@@ -82,16 +95,9 @@ std::pair<Row::Color, int> Turn::GetInput(std::string msg)
     return {*color, number};
 }
 
-constexpr std::optional<Row::Color> Turn::getColorFromString(std::string_view sv)
-{
-    if (sv == "red")        return Row::RED;
-    if (sv == "yellow")     return Row::YELLOW;
-    if (sv == "green")      return Row::GREEN;
-    if (sv == "blue")       return Row::BLUE;
-    return {};
-}
 
-bool Turn::isNumber(Row::Color color, const std::string& num_str)
+
+bool Turn::isNumberPossible(Row::Color color, const std::string& num_str, const std::string dice)
 {   
     try {
         int num{};
@@ -100,13 +106,19 @@ bool Turn::isNumber(Row::Color color, const std::string& num_str)
         if(pos == num_str.length())
         {
             num = std::stoi(num_str);
-            return (std::find(possibleNumbers[color].begin(), possibleNumbers[color].end(), num) != possibleNumbers[color].end());
+            if (dice == "WHITE")
+            {
+                return num == possibleNumbers[4][0];
+            }
+            if (dice == "COLORFUL")
+            {
+                return (std::find(possibleNumbers[color].begin(), possibleNumbers[color].end(), num) != possibleNumbers[color].end());
+            }
+            return false;
+            
         }
     } catch (...) {
         return false;
     }
     return false;
 }
-
-// Write check for possible
-bool Turn::

@@ -46,7 +46,8 @@ void Game::InitTurn()
     SetPlayersTurn(turn.GetActiveNumber());
     ShowCards();
 
-    turn.PlayWhiteDice(players[0]);
+    turn.UseWhiteDice(players[0]);
+    turn.UseColorfulDice(players[0]);
 }
 
 bool Game::EndTurn()
