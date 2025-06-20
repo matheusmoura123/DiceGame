@@ -28,6 +28,20 @@ bool Card::CrossRow(Row::Color color, int num)
     return false;
 }
 
+bool Card::LockRow(Row::Color color)
+{
+    rows[color].LockRowOut();
+}
+
+std::vector<int> Card::GetLocks()
+{
+    std::vector<int>locks{};
+    for(auto row : rows)
+    {
+        locks.push_back(row.GetStatus());
+    }
+}
+
 int Card::GetPoints()
 {
     int points{0};

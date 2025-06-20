@@ -64,7 +64,16 @@ void Game::MidTurn(Turn& turn)
 
 bool Game::EndTurn()
 {   
-    
+    for (auto& player : players)
+    {   
+        auto locks{player.GetLocks()};
+        for (uint8_t i{0}; i < 4; ++i)
+        {
+            if(locks[i])
+                dices.RemoveDice(static_cast<Dice::Color>(i));
+            break;
+        }
+    }
     turnNumber++;
     return true;
 }

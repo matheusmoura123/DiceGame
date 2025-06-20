@@ -51,4 +51,7 @@ bool Player::MakeCross(Row::Color color, int num)
     return card.CrossRow(color, num);
 }
 
-
+std::vector<int> Player::GetLocks()
+{
+    return card.GetLocks();
+}

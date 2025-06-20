@@ -43,12 +43,13 @@ private:
 public:
     bool CrossNumber(int num);
     void LockRowOut();
+    Row::Lock GetStatus();
     std::string_view GetColorName();
     std::optional<Row::Color> GetColorFromString(std::string_view sv);
     void PrintRow();
     int GetCrosses();
     
 private:
-    void LockRowBonus();
+    void GetBonus();
     bool CanCross(int num);
 };

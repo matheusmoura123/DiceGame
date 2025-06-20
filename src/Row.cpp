@@ -20,9 +20,9 @@ bool Row::CrossNumber(int num)
     {
         crosses.push_back(num);
         if (direction == UP && num == 12)
-            LockRowBonus();
+            GetBonus();
         if (direction == DOWN && num == 2)
-            LockRowBonus();
+            GetBonus();
         return true;
     }
     return false;
@@ -33,10 +33,15 @@ void Row::LockRowOut()
     status = LOCKED;
 }
 
-void Row::LockRowBonus()
+void Row::GetBonus()
 {
-    status = LOCKED;
     crosses.push_back(100);
+    LockRowOut();
+}
+
+Row::Lock Row::GetStatus()
+{
+    return status;
 }
 
 bool Row::CanCross(int num)

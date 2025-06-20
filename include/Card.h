@@ -21,6 +21,8 @@ private:
 public:
     void ShowCard();
     bool CrossRow(Row::Color color, int num);
+    bool LockRow(Row::Color color);
+    std::vector<int> Card::GetLocks();
     int GetPoints();
     int GetPenalties();
     void ApplyPenalty();

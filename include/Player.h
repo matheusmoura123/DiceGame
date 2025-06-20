@@ -36,6 +36,7 @@ public:
     void ApplyPenalty();
     void ShowCard();
     bool MakeCross(Row::Color color, int num);
+    std::vector<int> GetLocks();
 
 private:
 };
