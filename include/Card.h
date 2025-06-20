@@ -20,9 +20,9 @@ private:
 
 public:
     void ShowCard();
-    bool CrossRow(Row::Color color, int num);
+    bool MakeCross(Row::Color color, int num);
     bool LockRow(Row::Color color);
-    std::vector<int> Card::GetLocks();
+    std::vector<int> GetLocks();
     int GetPoints();
     int GetPenalties();
     void ApplyPenalty();

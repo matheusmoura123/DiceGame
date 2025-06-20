@@ -18,7 +18,7 @@ void Card::ShowCard()
     std::cout << '\n' << std::endl; 
 }
 
-bool Card::CrossRow(Row::Color color, int num)
+bool Card::MakeCross(Row::Color color, int num)
 {
     if(rows[color].CrossNumber(num))
     {
@@ -31,6 +31,7 @@ bool Card::CrossRow(Row::Color color, int num)
 bool Card::LockRow(Row::Color color)
 {
     rows[color].LockRowOut();
+    return true;
 }
 
 std::vector<int> Card::GetLocks()
@@ -40,6 +41,7 @@ std::vector<int> Card::GetLocks()
     {
         locks.push_back(row.GetStatus());
     }
+    return locks;
 }
 
 int Card::GetPoints()

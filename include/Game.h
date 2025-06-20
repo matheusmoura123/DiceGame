@@ -38,6 +38,7 @@ private:
     void SetPlayersTurn(int activeNumber);
     void PrintPoints();
     bool GameOver();
+    void ShowPlayer(Player& player);
     void ClearConsole();
 
 };

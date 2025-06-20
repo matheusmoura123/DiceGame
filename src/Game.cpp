@@ -54,6 +54,7 @@ Turn Game::InitTurn()
 void Game::MidTurn(Turn& turn)
 {   
     size_t active{static_cast<size_t>(turn.GetActiveNumber())};
+    ShowPlayer(players[active]);
     bool usedWhite{turn.UseWhiteDice(players[active])};
     bool usedColorful{turn.UseColorfulDice(players[active])};
     if(!usedWhite && !usedColorful)
@@ -119,12 +120,19 @@ bool Game::GameOver()
         }
     }
     if (locks > 1 || turnNumber > 6)
+        over = true;
+    if (over)
     {
         std::cout << "GAME OVER" << '\n';
         PrintPoints();
         return true;
     }
     return false;
+}
+
+void Game::ShowPlayer(Player& player)
+{
+    std::cout << "Player " << player.GetPlayerNumber() + 1 << '\n';
 }
 
 void Game::ClearConsole() {

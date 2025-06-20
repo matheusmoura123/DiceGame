@@ -42,7 +42,6 @@ bool Turn::UseColorfulDice(Player& player)
 
 bool Turn::UseDice(Player& player, const std::string dice)
 {   
-    std::cout << "Player " << player.GetPlayerNumber() + 1 << '\n';
     while (1)
     {
         auto [color, number] = GetInput(dice);

@@ -24,34 +24,3 @@ bool Player::IsTurn()
 {
     return turn;
 }
-
-int Player::GetPoints()
-{   
-    points = card.GetPoints();
-    return points;
-}
-
-int Player::GetPenalties()
-{   
-    return card.GetPenalties();
-}
-
-void Player::ApplyPenalty()
-{   
-    card.ApplyPenalty();
-}
-
-void Player::ShowCard()
-{
-    card.ShowCard();
-}
-
-bool Player::MakeCross(Row::Color color, int num)
-{
-    return card.CrossRow(color, num);
-}
-
-std::vector<int> Player::GetLocks()
-{
-    return card.GetLocks();
-}

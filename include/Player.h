@@ -6,7 +6,7 @@
 
 #include "Card.h"
 
-class Player
+class Player : public Card
 {
 public:
     enum Turn {
@@ -30,13 +30,4 @@ public:
     int GetPlayerNumber();
     void SetTurn(Turn isTurn);
     bool IsTurn();
-
-    int GetPoints();
-    int GetPenalties();
-    void ApplyPenalty();
-    void ShowCard();
-    bool MakeCross(Row::Color color, int num);
-    std::vector<int> GetLocks();
-
-private:
 };
