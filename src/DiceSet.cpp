@@ -47,18 +47,12 @@ std::vector<std::vector<int>> DiceSet::PossibleNumbers(std::vector<int> diceThro
 
 bool DiceSet::RemoveDice(Dice::Color color)
 {   
-    if (diceRemoved)
-    {
-        std::cout << "One dice already removed" << '\n';
-        return false;
-    }
     if (color < Dice::RED || color > Dice::BLUE)
     {
         std::cout << "Incorrect color" << '\n';
         return false;
     }
-    diceRemoved=dices[color].RemoveFromGame();
-    return true;
+    return dices[color].RemoveFromGame();
 }
 
 void DiceSet::ShowThrow(std::vector<int> diceThrow)

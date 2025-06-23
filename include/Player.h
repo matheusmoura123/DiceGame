@@ -18,7 +18,6 @@ private:
     int number;
     int points;
     Turn turn;
-    Card card;
 
 public:
     Player(int playerNumber);

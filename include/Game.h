@@ -23,7 +23,7 @@ private:
     int turnNumber;
     int playerTurn;
     DiceSet dices;
-    int locks;
+    int removedDice;
     std::vector<std::vector<int>> possibilities;
 
 public:

@@ -47,7 +47,7 @@ bool Turn::UseDice(Player& player, const std::string dice)
         auto [color, number] = GetInput(dice);
         if (number == 0)
         {
-            std::cout << '\n';
+            // std::cout << '\n';
             return false;
         }
         if(!player.MakeCross(color, number))
@@ -67,7 +67,7 @@ std::pair<Row::Color, int> Turn::GetInput(const std::string dice)
     bool correct{false};
     while (!correct)
     {   
-        std::cout << dice <<" DICES (row_color number) or (no 0): ";
+        std::cout << dice <<" DICES: ";
         std::string color_str;
         std::string number_str;
         std::cin >> color_str >> number_str;

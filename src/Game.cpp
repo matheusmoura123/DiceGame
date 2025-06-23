@@ -6,7 +6,7 @@ Game::Game()
     , turnNumber(1)
     , playerTurn(0)
     , dices()
-    , locks(0)
+    , removedDice(0)
     , possibilities()
 {}
 
@@ -60,7 +60,10 @@ void Game::MidTurn(Turn& turn)
     if(!usedWhite && !usedColorful)
         players[active].ApplyPenalty();
     for (auto idx : turn.GetPassiveOrder())
+    {
+        ShowPlayer(players[static_cast<size_t>(idx)]);
         turn.UseWhiteDice(players[static_cast<size_t>(idx)]);
+    }
 }
 
 bool Game::EndTurn()
@@ -71,8 +74,14 @@ bool Game::EndTurn()
         for (uint8_t i{0}; i < 4; ++i)
         {
             if(locks[i])
-                dices.RemoveDice(static_cast<Dice::Color>(i));
-            break;
+            {   
+                for (auto& player2 : players)
+                    player2.LockRow(static_cast<Row::Color>(i));
+                if(dices.RemoveDice(static_cast<Dice::Color>(i+2)))
+                {
+                    removedDice++;
+                }
+            }
         }
     }
     turnNumber++;
@@ -119,11 +128,12 @@ bool Game::GameOver()
             break;
         }
     }
-    if (locks > 1 || turnNumber > 6)
+    if (removedDice > 1)
         over = true;
     if (over)
     {
-        std::cout << "GAME OVER" << '\n';
+        std::cout << "\nGAME OVER\n";
+        ShowCards();
         PrintPoints();
         return true;
     }
@@ -136,7 +146,7 @@ void Game::ShowPlayer(Player& player)
 }
 
 void Game::ClearConsole() {
-    system("cls");
+    system("clear");
 }
 
 

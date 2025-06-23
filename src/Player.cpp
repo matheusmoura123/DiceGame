@@ -4,7 +4,6 @@ Player::Player(int playerNumber)
     : number(playerNumber)
     , points(0)
     , turn(NOT_TURN)
-    , card()
 {}
 
 Player::~Player()
