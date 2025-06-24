@@ -27,10 +27,11 @@ private:
     std::vector<std::vector<int>> possibilities;
 
 public:
-    bool SetPlayers(int num);
     void StartGame();
   
 private:
+    void AskNumPlayers();
+    void SetPlayers(int num);
     Turn InitTurn();
     void MidTurn(Turn& turn);
     bool EndTurn();

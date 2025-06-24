@@ -4,7 +4,7 @@ Row::Row(Color color)
     : color(color)
     , direction(UP)
     , status(UNLOCKED)
-    , min_crosses(6) // It is actually 5 but we add one extra cross in the begining
+    , min_crosses(6) // = 5 + 1 (extra cross in beginning of vector)
     , crosses(1)
 {
     direction = (color == RED || color == YELLOW) ? UP : DOWN;

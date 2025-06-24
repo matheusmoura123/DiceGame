@@ -13,24 +13,36 @@ Game::Game()
 Game::~Game()
 {}
 
-bool Game::SetPlayers(int num)
+void Game::AskNumPlayers()
 {
-    if (num < 2 || num > 5)
-    {
-        std::cout << "Number of Players: 2 to 5" << '\n';
-        return false;
+    int numPlayers{0};
+    while (numPlayers < 2 || numPlayers > 5)
+    {   
+        std::cout << "Number of Players (2 to 5): ";
+        std::cin >> numPlayers;
+        if (std::cin.fail()) 
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            numPlayers = 0;
+        }
     }
+    SetPlayers(numPlayers);
+}
+
+void Game::SetPlayers(int num)
+{
     for (int i{0}; i < num; ++i)
     {   
         Player player(i);
         players.push_back(player);
     }
     numPlayers = num;
-    return true;
 }
 
 void Game::StartGame()
 {   
+    AskNumPlayers();
     while (!GameOver())
     {   
         Turn turn{InitTurn()};
