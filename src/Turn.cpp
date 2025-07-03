@@ -73,7 +73,7 @@ std::pair<Row::Color, int> Turn::GetInput(const std::string dice)
         std::cin >> color_str >> number_str;
         if (color_str == "no")
         {
-            return {*color, number};
+            return {Row::Color::RED, number};
         }
         {
             Row row(Row::RED);
@@ -102,7 +102,7 @@ bool Turn::isNumberPossible(Row::Color color, const std::string& num_str, const 
     try {
         int num{};
         size_t pos;
-        std::stoi(num_str, &pos);
+        (void)std::stoi(num_str, &pos);
         if(pos == num_str.length())
         {
             num = std::stoi(num_str);
